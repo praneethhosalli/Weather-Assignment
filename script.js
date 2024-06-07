@@ -11,11 +11,20 @@ function getWeather() {
     const currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
     const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`;
 
+    // Clear previous weather information
+    clearWeatherInfo();
+
     fetch(currentWeatherUrl)
         .then(response => response.json())
         .then(data => {
-            displayWeather(data);
-            updateDateTime(); // Update date and time after fetching weather data
+            if (data.cod === '404') {
+                // Display error message if city not found
+                const weatherInfoDiv = document.getElementById('weather-info');
+                weatherInfoDiv.innerHTML = `<p>${data.message}</p>`;
+            } else {
+                displayWeather(data);
+                updateDateTime(); // Update date and time after fetching weather data
+            }
         })
         .catch(error => {
             console.error('Error fetching current weather data:', error);
@@ -31,6 +40,23 @@ function getWeather() {
             console.error('Error fetching hourly forecast data:', error);
             alert('Error fetching hourly forecast data. Please try again.');
         });
+}
+
+function clearWeatherInfo() {
+    const tempDivInfo = document.getElementById('temp-div');
+    const weatherInfoDiv = document.getElementById('weather-info');
+    const additionalInfoDiv = document.getElementById('additional-info');
+    const hourlyForecastDiv = document.getElementById('hourly-forecast');
+
+    // Clear previous content
+    weatherInfoDiv.innerHTML = '';
+    hourlyForecastDiv.innerHTML = '';
+    tempDivInfo.innerHTML = '';
+    additionalInfoDiv.innerHTML = '';
+
+    // Hide weather icon
+    const weatherIcon = document.getElementById('weather-icon');
+    weatherIcon.style.display = 'none';
 }
 
 function displayWeather(data) {
@@ -107,44 +133,4 @@ function displayHourlyForecast(hourlyData) {
 
 function showImage() {
     const weatherIcon = document.getElementById('weather-icon');
-    weatherIcon.style.display = 'block'; // Make the image visible once it's loaded
-}
-
-function toggleMode() {
-    document.body.classList.toggle('dark-mode');
-}
-
-function updateDateTime() {
-    const currentDateTimeDiv = document.getElementById('current-datetime');
-    const now = new Date();
-    const date = now.toLocaleDateString();
-    const time = now.toLocaleTimeString();
-    currentDateTimeDiv.innerHTML = `<p>${date} ${time}</p>`;
-}
-
-function displayCurrentLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(position => {
-            const lat = position.coords.latitude;
-            const lon = position.coords.longitude;
-            const locationUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`;
-
-            fetch(locationUrl)
-                .then(response => response.json())
-                .then(data => {
-                    const currentLocationDiv = document.getElementById('current-location');
-                    const cityName = data.name;
-                    currentLocationDiv.innerHTML = `<p>Current Location: ${cityName}</p>`;
-                })
-                .catch(error => {
-                    console.error('Error fetching current location data:', error);
-                });
-        });
-    } else {
-        alert('Geolocation is not supported by this browser.');
-    }
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    displayCurrentLocation();
-});
+    weatherIcon.style.display = 'block'; // Make the image visible once it's
