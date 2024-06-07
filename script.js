@@ -121,30 +121,3 @@ function updateDateTime() {
     const time = now.toLocaleTimeString();
     currentDateTimeDiv.innerHTML = `<p>${date} ${time}</p>`;
 }
-
-function displayCurrentLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(position => {
-            const lat = position.coords.latitude;
-            const lon = position.coords.longitude;
-            const locationUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`;
-
-            fetch(locationUrl)
-                .then(response => response.json())
-                .then(data => {
-                    const currentLocationDiv = document.getElementById('current-location');
-                    const cityName = data.name;
-                    currentLocationDiv.innerHTML = `<p>Current Location: ${cityName}</p>`;
-                })
-                .catch(error => {
-                    console.error('Error fetching current location data:', error);
-                });
-        });
-    } else {
-        alert('Geolocation is not supported by this browser.');
-    }
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    displayCurrentLocation();
-});
