@@ -37,5 +37,7 @@ Limited Weather Information: The application displays basic weather information 
 Future Enhancements:
 
 Add support for fetching weather information based on the user's current location.
+
 Include additional weather details such as precipitation, UV index, and air quality.
+
 Improve error handling and provide better feedback to users in case of API errors or invalid input.
