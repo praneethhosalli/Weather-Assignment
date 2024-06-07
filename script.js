@@ -119,7 +119,6 @@ function updateDateTime() {
     const now = new Date();
     const date = now.toLocaleDateString();
     const time = now.toLocaleTimeString();
-
     currentDateTimeDiv.innerHTML = `<p>${date} ${time}</p>`;
 }
 
