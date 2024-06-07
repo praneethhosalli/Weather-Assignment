@@ -7,14 +7,11 @@ body {
     height: 100vh;
     margin: 0;
     transition: background 0.3s;
-    padding: 10px;
-    box-sizing: border-box;
 }
 
 #weather-container {
     background: rgba(255, 255, 255, 0.3);
     max-width: 400px;
-    width: 100%;
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
@@ -47,7 +44,7 @@ button {
     border-radius: 10px;
     cursor: pointer;
     margin-top: 20px;
-    width: 100%;
+    width: 100px;
     font-size: 15px;
     transition: background 0.3s;
 }
@@ -63,24 +60,19 @@ button:hover {
 }
 
 #temp-div p {
-    font-size: 40px;
-    margin-top: -10px;
+    font-size: 60px;
+    margin-top: -30px;
 }
 
 #weather-info {
-    font-size: 16px;
-}
-
-#additional-info {
-    font-size: 14px;
-    margin-top: 10px;
+    font-size: 20px;
 }
 
 #weather-icon {
-    width: 100%;
-    max-width: 200px;
-    height: auto;
-    margin: 0 auto 10px;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 10px; 
+    margin-bottom: 0;
     display: none;
 }
 
@@ -135,28 +127,4 @@ button:hover {
 
 .dark-mode button:hover {
     background: #777;
-}
-
-@media (min-width: 600px) {
-    body {
-        padding: 20px;
-    }
-
-    #temp-div p {
-        font-size: 60px;
-    }
-
-    #weather-info {
-        font-size: 20px;
-    }
-
-    #additional-info {
-        font-size: 16px;
-    }
-}
-
-@media (min-width: 768px) {
-    #weather-container {
-        max-width: 500px;
-    }
 }
